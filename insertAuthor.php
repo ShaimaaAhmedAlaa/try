@@ -10,18 +10,13 @@ if (isset($_POST['add'])) {
 	$works  = htmlspecialchars($_POST['works']);
 	$actions  = htmlspecialchars($_POST['actions']);
 
-}else{
-	header("location: index.php");
-
 	$connection = new Connection($config['database'],$config['username'],$config['password'],$config['host']);
 	$PDO=$connection->connect();
 	if($PDO){
 	try{
-		$stmt = $PDO->prepare("INSERT INTO authors(name, birth, works, actions) VALUES (:name, :birth, :works, :actions)");
-		$stmt->execute ([":name"=>$name,
-						":birth"=>$birth,
-						":works"=>$works,
-						":actions"=>$actions]);
+		
+		$stmt = $PDO->prepare("INSERT INTO authors (name, birth, works ) VALUES (:name, :birth, :works)");
+		$stmt->execute ([":name"=>$name,":birth"=>$birth,":works"=>$works]);
 
 		if(count($stmt->rowCount())){
 			echo " inserted correctly";
@@ -33,9 +28,13 @@ if (isset($_POST['add'])) {
 		echo "Error selecting data";
 	}
 
-	else {
+	}else {
 		echo "Error in connection";
-	}
+
+
+}
+}else{
+	header("location: index.php");
 }
 
  ?>
