@@ -33,8 +33,9 @@ if (isset($_POST['add'])) {
 		echo "Error selecting data";
 	}
 
-	}else {
+	else {
 		echo "Error in connection";
+	}
 }
 
  ?>
